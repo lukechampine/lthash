@@ -38,20 +38,19 @@ unique piece of metadata, such as an index.
 ## Usage
 
 ```go
-import "lukechampine.com/lthash"
+h := lthash.New16()
 
-func main() {
-    h := lthash.New16()
-    
-    h.Add([]byte("Apple"))
-    h.Add([]byte("Banana"))
-    h.Add([]byte("Orange"))
-    oldSum := h.Sum(nil)
+// compute the combined hash of "Apple", "Banana", and "Orange"
+h.Add([]byte("Apple"))
+h.Add([]byte("Banana"))
+h.Add([]byte("Orange"))
+oldSum := h.Sum(nil)
 
-    h.Remove([]byte("Banana"))
-    h.Add([]byte("Grape"))
-    newSum := h.Sum(nil)
-}
+// replace "Banana" with "Grape"; the resulting hash is the same
+// as the combined hash of "Apple", "Grape", and "Orange".
+h.Remove([]byte("Banana"))
+h.Add([]byte("Grape"))
+newSum := h.Sum(nil)
 ```
 
 ## Benchmarks
